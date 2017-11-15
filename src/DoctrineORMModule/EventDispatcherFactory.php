@@ -41,7 +41,7 @@ final class EventDispatcherFactory
         foreach ($eventListenerConfig as $event => $listener) {
             if (! $container->has($listener)) {
                 throw new InvalidConfigurationException(
-                    "Configuration for doctrine.cli.event_dispatcher.listeners is invalid.  "
+                    'Configuration for doctrine.cli.event_dispatcher.listeners is invalid.  '
                     . "Unable to find $listener in container."
                 );
             }

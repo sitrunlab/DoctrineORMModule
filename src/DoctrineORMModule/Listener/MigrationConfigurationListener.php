@@ -62,11 +62,20 @@ final class MigrationConfigurationListener
             $objectManagerAlias = $input->getParameterOption(['--object-manager']);
         }
 
-        # FIXME:  Add comment about why we make this alias change
-        $migrationsConfigurationAlias =
-            str_replace('entitymanager', 'migrations_configuration', $objectManagerAlias);
+        $migrationsConfigurationAlias = $this->createMigrationConfigurationAlias($objectManagerAlias);
         $migrationConfiguration = $this->container->get($migrationsConfigurationAlias);
 
         $command->setMigrationConfiguration($migrationConfiguration);
+    }
+
+    /**
+     * Create the Migration Configuration alias from the Object Manager alias
+     *
+     * @param string $objectManagerAlias
+     * @return string
+     */
+    private function createMigrationConfigurationAlias($objectManagerAlias)
+    {
+        return str_replace('entitymanager', 'migrations_configuration', $objectManagerAlias);
     }
 }
