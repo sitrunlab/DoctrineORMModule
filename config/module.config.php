@@ -157,7 +157,6 @@ return [
         // migrations configuration
         'migrations_configuration' => [
             'orm_default' => [
-                'frozen' => false,
                 'table_storage' => [
                     'table_name' => 'DoctrineMigrationVersions',
                     'version_column_name' => 'version',
@@ -168,11 +167,10 @@ return [
                 'migrations_paths' => [
                     'DoctrineORMModule\Migrations' => 'data/DoctrineORMModule/Migrations',
                 ],
-                'migrations_classes' => [],
+                'migrations' => [],
                 'all_or_nothing' => false,
                 'check_database_platform' => true,
-                'organized_by_year' => false,
-                'organized_by_year_and_month' => false,
+                'organize_migrations' => 'year', // year or year_and_month
                 'custom_template' => null,
             ],
         ],
