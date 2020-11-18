@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace DoctrineORMModule\Service;
 
+use Doctrine\Migrations\DependencyFactory;
 use Doctrine\Migrations\Tools\Console\Command\DoctrineCommand;
+use DoctrineORMModule\Console\Loader;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
 use Laminas\ServiceManager\FactoryInterface;
@@ -42,7 +44,14 @@ class MigrationsCommandFactory implements FactoryInterface
             throw new InvalidArgumentException();
         }
 
-        return new $className();
+        $config = $container->get('config');
+
+        return new $className(
+            DependencyFactory::fromEntityManager(
+                new Loader\MigrationsConfiguration($config['doctrine']['migrations_configuration']),
+                new Loader\MigrationsEntityManager($container)
+            )
+        );
     }
 
     /**

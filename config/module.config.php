@@ -164,9 +164,7 @@ return [
                     'executed_at_column_name' => 'executedAt',
                     'execution_time_column_name' => 'executionTime',
                 ],
-                'migrations_paths' => [
-                    'DoctrineORMModule\Migrations' => 'data/DoctrineORMModule/Migrations',
-                ],
+                'migrations_paths' => [],
                 'migrations' => [],
                 'all_or_nothing' => false,
                 'check_database_platform' => true,

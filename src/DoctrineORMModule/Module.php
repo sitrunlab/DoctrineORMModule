@@ -40,14 +40,6 @@ class Module implements
                         ->getParam('ServiceManager')
                         ->get(CliConfigurator::class)
                         ->configure($event->getTarget());
-
-                    if (! class_exists(VersionCommand::class)) {
-                        return;
-                    }
-
-                    $event->getTarget()->getHelperSet()->set(
-                        new MigrationsConfigurationHelper($event->getParam('ServiceManager'))
-                    );
                 },
                 1
             );
