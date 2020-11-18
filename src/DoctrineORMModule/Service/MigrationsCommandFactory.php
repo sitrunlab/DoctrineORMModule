@@ -60,7 +60,7 @@ class MigrationsCommandFactory implements FactoryInterface
                 $matches
             )
         ) {
-            throw new RuntimeException('The object manager alias is invalid: ' . $objectManagerAlias);
+            throw new RuntimeException('The object manager name is invalid: ' . $objectManagerName);
         }
 
         return new $className(
