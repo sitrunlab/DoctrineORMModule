@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace DoctrineORMModule;
 
-use Doctrine\Migrations\Tools\Console\Command\VersionCommand;
-use DoctrineORMModule\Console\Helper\MigrationsConfigurationHelper;
 use Laminas\DeveloperTools\ProfilerEvent;
 use Laminas\EventManager\EventInterface;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;

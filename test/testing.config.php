@@ -75,9 +75,7 @@ return [
                     'executed_at_column_name' => 'executedAt',
                     'execution_time_column_name' => 'executionTime',
                 ],
-                'migrations_paths' => [
-                    'DoctrineORMModule\Migrations' => 'data/DoctrineORMModule/Migrations',
-                ],
+                'migrations_paths' => ['DoctrineORMModule\Migrations' => 'data/DoctrineORMModule/Migrations'],
                 'migrations' => [],
                 'all_or_nothing' => false,
                 'check_database_platform' => true,
@@ -92,9 +90,7 @@ return [
                     'executed_at_column_name' => 'executedAtOther',
                     'execution_time_column_name' => 'executionTimeOther',
                 ],
-                'migrations_paths' => [
-                    'DoctrineORMModule\Migrations' => 'data/DoctrineORMModule/Migrations/Other',
-                ],
+                'migrations_paths' => ['DoctrineORMModule\Migrations' => 'data/DoctrineORMModule/Migrations/Other'],
                 'migrations' => [],
                 'all_or_nothing' => false,
                 'check_database_platform' => true,

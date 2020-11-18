@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace DoctrineORMModule\Service;
 
-use Doctrine\Migrations\Configuration\Migration\ConfigurationArray;
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
+use Doctrine\Migrations\Configuration\Migration\ConfigurationArray;
 use Doctrine\Migrations\DependencyFactory;
 use Doctrine\Migrations\Tools\Console\Command\DoctrineCommand;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use RuntimeException;
 use Symfony\Component\Console\Input\ArgvInput;
 
 use function class_exists;
+use function preg_match;
 use function strtolower;
 use function ucfirst;
 
@@ -49,7 +51,7 @@ class MigrationsCommandFactory implements FactoryInterface
             throw new InvalidArgumentException();
         }
 
-        $config = $container->get('config');
+        $config            = $container->get('config');
         $objectManagerName = $this->getObjectManagerName();
 
         // Copied from DoctrineModule/ServiceFactory/AbstractDoctrineServiceFactory
@@ -61,6 +63,10 @@ class MigrationsCommandFactory implements FactoryInterface
             )
         ) {
             throw new RuntimeException('The object manager name is invalid: ' . $objectManagerName);
+        }
+
+        if (! isset($config['doctrine']['migrations_configuration'][$matches['serviceName']])) {
+            throw new RuntimeException('The migrations configuration section is invalid: ' . $matches['serviceName']);
         }
 
         return new $className(

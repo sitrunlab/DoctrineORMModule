@@ -68,7 +68,7 @@ class CliConfiguratorTest extends TestCase
      */
     public function testEntityManagerUsedCanBeSpecifiedInCommandLineArgument(): void
     {
-        $objectManagerName = 'doctrine.entitymanager.some_other_name';
+        $objectManagerName = 'doctrine.entitymanager.orm_other';
 
         $connection = $this->getMockBuilder(Connection::class)
             ->disableOriginalConstructor()

@@ -6,11 +6,9 @@ namespace DoctrineORMModule\Service;
 
 use Doctrine\Migrations\Configuration\Configuration;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationArray;
-use Doctrine\Migrations\Metadata\Storage\TableMetadataStorageConfiguration;
 use DoctrineModule\Service\AbstractFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * DBAL Connection ServiceManager factory
