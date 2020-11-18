@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace DoctrineORMModule\Console\Helper;
 
 use Doctrine\Migrations\Configuration\Configuration;
-use Doctrine\Migrations\Tools\Console\Helper\ConfigurationHelperInterface;
+use Doctrine\Migrations\Tools\Console\Helper\ConfigurationHelper;
 use Interop\Container\ContainerInterface;
 use RuntimeException;
 use Symfony\Component\Console\Helper\HelperInterface;
@@ -16,7 +16,7 @@ use function preg_match;
 
 class MigrationsConfigurationHelper implements
     HelperInterface,
-    ConfigurationHelperInterface
+    ConfigurationHelper
 {
     /** @var HelperSet */
     protected $helperSet;
@@ -46,7 +46,7 @@ class MigrationsConfigurationHelper implements
         return 'configuration';
     }
 
-    public function getMigrationConfig(InputInterface $input): Configuration
+    public function getConfiguration(InputInterface $input): Configuration
     {
         $objectManagerAlias = $input->getOption('object-manager') ?: 'doctrine.entitymanager.orm_default';
 

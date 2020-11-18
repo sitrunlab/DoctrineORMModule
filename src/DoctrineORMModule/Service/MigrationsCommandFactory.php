@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DoctrineORMModule\Service;
 
-use Doctrine\Migrations\Tools\Console\Command\AbstractCommand;
+use Doctrine\Migrations\Tools\Console\Command\DoctrineCommand;
 use Interop\Container\ContainerInterface;
 use InvalidArgumentException;
 use Laminas\ServiceManager\FactoryInterface;
@@ -48,7 +48,7 @@ class MigrationsCommandFactory implements FactoryInterface
     /**
      * @throws InvalidArgumentException
      */
-    public function createService(ServiceLocatorInterface $container): AbstractCommand
+    public function createService(ServiceLocatorInterface $container): DoctrineCommand
     {
         return $this($container, 'Doctrine\Migrations\Tools\Console\Command\\' . $this->name . 'Command');
     }

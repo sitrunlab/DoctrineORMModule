@@ -157,11 +157,22 @@ return [
         // migrations configuration
         'migrations_configuration' => [
             'orm_default' => [
-                'directory'       => 'data/DoctrineORMModule/Migrations',
-                'name'            => 'Doctrine Database Migrations',
-                'namespace'       => 'DoctrineORMModule\Migrations',
-                'table'           => 'migrations',
-                'column'          => 'version',
+                'frozen' => false,
+                'table_storage' => [
+                    'table_name' => 'DoctrineMigrationVersions',
+                    'version_column_name' => 'version',
+                    'version_column_length' => 1024,
+                    'executed_at_column_name' => 'executedAt',
+                    'execution_time_column_name' => 'executionTime',
+                ],
+                'migrations_paths' => [
+                    'DoctrineORMModule\Migrations' => 'data/DoctrineORMModule/Migrations',
+                ],
+                'migrations_classes' => [],
+                'all_or_nothing' => false,
+                'check_database_platform' => true,
+                'organized_by_year' => false,
+                'organized_by_year_and_month' => false,
                 'custom_template' => null,
             ],
         ],

@@ -73,7 +73,7 @@ class MigrationsConfigurationHelperTest extends TestCase
         $requestInput    = new RequestInput($request, $inputDefinition);
         $helper          = new MigrationsConfigurationHelper($this->serviceLocator);
 
-        $configuration = $helper->getMigrationConfig($requestInput);
+        $configuration = $helper->getConfiguration($requestInput);
 
         $this->assertSame(
             $this->serviceLocator->get('doctrine.migrations_configuration.orm_default'),
@@ -101,7 +101,7 @@ class MigrationsConfigurationHelperTest extends TestCase
                 . '"doctrine.migrations_configuration.orm_some_other_name" to '
                 . 'a factory; are you certain you provided it during configuration?'
         );
-        (new MigrationsConfigurationHelper($this->serviceLocator))->getMigrationConfig($requestInput);
+        (new MigrationsConfigurationHelper($this->serviceLocator))->getConfiguration($requestInput);
     }
 
     /**
@@ -123,7 +123,7 @@ class MigrationsConfigurationHelperTest extends TestCase
         $this->expectExceptionMessage(
             'The object manager alias is invalid: doctrine.entitymanagerorm_some_other_name'
         );
-        (new MigrationsConfigurationHelper($this->serviceLocator))->getMigrationConfig($requestInput);
+        (new MigrationsConfigurationHelper($this->serviceLocator))->getConfiguration($requestInput);
     }
 
     public function testValidObjectManagerAlias(): void
@@ -137,7 +137,7 @@ class MigrationsConfigurationHelperTest extends TestCase
         $requestInput    = new RequestInput($request, $inputDefinition);
 
         $configuration = (new MigrationsConfigurationHelper($this->serviceLocator))
-            ->getMigrationConfig($requestInput);
+            ->getConfiguration($requestInput);
 
         $this->assertSame(
             $this->serviceLocator->get('doctrine.migrations_configuration.orm_other'),
