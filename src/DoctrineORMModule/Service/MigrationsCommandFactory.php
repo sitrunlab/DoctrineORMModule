@@ -26,14 +26,23 @@ use function ucfirst;
 class MigrationsCommandFactory implements FactoryInterface
 {
     /** @var string */
-    private $name;
+    private $commandClassName;
 
     /** @var string */
     private $defaultObjectManagerName = 'doctrine.entitymanager.orm_default';
 
     public function __construct(string $name)
     {
-        $this->name = ucfirst(strtolower($name));
+        // The migrations:sync-metadata-storage does not follow the same 1:1
+        // naming and uses the SyncMetadataCommand.  For this case adjust the name.
+        if ($name === 'syncmetadatastorage') {
+            $name = 'syncmetadata';
+        }
+
+        $this->commandClassName =
+            'Doctrine\Migrations\Tools\Console\Command\\'
+            . ucfirst(strtolower($name))
+            . 'Command';
     }
 
     /**
@@ -45,9 +54,9 @@ class MigrationsCommandFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        $className = 'Doctrine\Migrations\Tools\Console\Command\\' . $this->name . 'Command';
+        $commandClassName = $this->commandClassName;
 
-        if (! class_exists($className)) {
+        if (! class_exists($commandClassName)) {
             throw new InvalidArgumentException();
         }
 
@@ -65,13 +74,11 @@ class MigrationsCommandFactory implements FactoryInterface
             throw new RuntimeException('The object manager name is invalid: ' . $objectManagerName);
         }
 
-        if (! isset($config['doctrine']['migrations_configuration'][$matches['serviceName']])) {
-            throw new RuntimeException('The migrations configuration section is invalid: ' . $matches['serviceName']);
-        }
-
-        return new $className(
+        // An object manager may not have a migrations configuration and that's OK.
+        // Use default values in that case.
+        return new $commandClassName(
             DependencyFactory::fromEntityManager(
-                new ConfigurationArray($config['doctrine']['migrations_configuration'][$matches['serviceName']]),
+                new ConfigurationArray($config['doctrine']['migrations_configuration'][$matches['serviceName']] ?? []),
                 new ExistingEntityManager($container->get($objectManagerName))
             )
         );
@@ -82,7 +89,7 @@ class MigrationsCommandFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $container): DoctrineCommand
     {
-        return $this($container, 'Doctrine\Migrations\Tools\Console\Command\\' . $this->name . 'Command');
+        return $this($container, $this->commandClassName);
     }
 
     private function getObjectManagerName(): string

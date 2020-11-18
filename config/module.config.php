@@ -175,13 +175,19 @@ return [
 
         // migrations commands base config
         'migrations_cmd' => [
+            'current' => [],
+            'dumpschema' => [],
+            'diff'     => [],
             'generate' => [],
             'execute'  => [],
-            'migrate'  => [],
-            'status'   => [],
-            'version'  => [],
-            'diff'     => [],
             'latest'   => [],
+            'list' => [],
+            'migrate'  => [],
+            'rollup' => [],
+            'status'   => [],
+            'syncmetadatastorage' => [],
+            'uptodate' => [],
+            'version'  => [],
         ],
     ],
 
